@@ -1,8 +1,10 @@
 import React, { ReactNode } from "react";
-import { auth } from "@/auth";
+// import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
 import "@/styles/admin.css";
+import Sidebar from "@/components/admin/Sidebar";
+import Header from "@/components/admin/Header";
 // import Sidebar from "@/components/admin/Sidebar";
 // import Header from "@/components/admin/Header";
 // import { db } from "@/database/drizzle";
@@ -10,9 +12,9 @@ import "@/styles/admin.css";
 // import { eq } from "drizzle-orm";
 
 const Layout = async ({ children }: { children: ReactNode }) => {
-  const session = await auth();
+  // const session = await auth();
 
-  if (!session?.user?.id) redirect("/sign-in");
+  // if (!session?.user?.id) redirect("/sign-in");
 
 //   const isAdmin = await db
 //     .select({ isAdmin: users.role })
@@ -26,9 +28,13 @@ const Layout = async ({ children }: { children: ReactNode }) => {
   return (
     <main className="flex min-h-screen w-full flex-row">
       {/* <Sidebar session={session} /> */}
+      <Sidebar />
+      {/* <p>Sidebar</p> */}
 
       <div className="admin-container">
         {/* <Header session={session} /> */}
+        {/* <p>Header</p> */}
+        <Header />
         {children}
       </div>
     </main>
