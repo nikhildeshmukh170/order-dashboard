@@ -4,19 +4,37 @@ import Image from "next/image";
 import { adminSideBarLinks } from "@/constants";
 import Link from "next/link";
 import { cn, getInitials } from "@/lib/utils";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Session } from "next-auth";
+import { User } from "firebase/auth"; // Import Firebase user type
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
+import app from "../../config"; 
 
-const Sidebar = ({ session }: { session: Session }) => {
+function Sidebar() {
+  const auth = getAuth(app); // Initialize Firebase Auth
+  const router = useRouter();
+  const [user, setUser] = useState<User | null>(null); // Use User type
   const pathname = usePathname();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user); // Set user if authenticated
+      } else {
+        setUser(null); // Set null if no user is authenticated
+        router.push("/"); // Redirect if not authenticated
+      }
+    });
+    return () => unsubscribe(); // Cleanup on component unmount
+  }, [auth, router]);
 
   return (
     <div className="admin-sidebar">
       <div>
         <div className="logo">
           <Image
-            src="/icons/admin/logo.svg"
+            src="/icons/admin/logo.png"
             alt="logo"
             height={37}
             width={37}
@@ -45,7 +63,7 @@ const Sidebar = ({ session }: { session: Session }) => {
                       src={link.img}
                       alt="icon"
                       fill
-                      className={`${isSelected ? "brightness-0 invert" : ""}  object-contain`}
+                      className={`${isSelected ? "brightness-0 invert" : ""} object-contain`}
                     />
                   </div>
 
@@ -62,16 +80,13 @@ const Sidebar = ({ session }: { session: Session }) => {
       <div className="user">
         <Avatar>
           <AvatarFallback className="bg-amber-100">
-            {getInitials("N" || "IN")}
-            {/* {getInitials(session?.user?.name || "IN")} */}
+            {getInitials(user ? user.displayName || "IN" : "IN")}
           </AvatarFallback>
         </Avatar>
 
         <div className="flex flex-col max-md:hidden">
-          {/* <p className="font-semibold text-dark-200">{session?.user?.name}</p> */}
-          <p className="font-semibold text-dark-200">Nikhil Deshmukh</p>
-          <p className="text-xs text-light-500">nikhildeshmukh170@gmail.com</p>
-          {/* <p className="text-xs text-light-500">{session?.user?.email}</p> */}
+          <p className="font-semibold text-dark-200">{user ? user.displayName : "Guest"}</p>
+          <p className="text-xs text-light-500">{user?.email || "Guest email"}</p>
         </div>
       </div>
     </div>

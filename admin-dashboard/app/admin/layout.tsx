@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import "@/styles/admin.css";
 import Sidebar from "@/components/admin/Sidebar";
 import Header from "@/components/admin/Header";
+import Footer from "@/components/admin/Footer";
 // import Sidebar from "@/components/admin/Sidebar";
 // import Header from "@/components/admin/Header";
 // import { db } from "@/database/drizzle";
@@ -26,17 +27,18 @@ const Layout = async ({ children }: { children: ReactNode }) => {
 //   if (!isAdmin) redirect("/");
 
   return (
-    <main className="flex min-h-screen w-full flex-row">
-      {/* <Sidebar session={session} /> */}
-      <Sidebar />
-      {/* <p>Sidebar</p> */}
+    <main className="flex min-h-screen w-full flex-col">
+      <div className="flex min-h-screen w-full flex-row ">
+        <Sidebar />
+        {/* <p>Sidebar</p> */}
 
-      <div className="admin-container">
-        {/* <Header session={session} /> */}
-        {/* <p>Header</p> */}
-        <Header />
-        {children}
+        <div className="admin-container">
+          {/* <p>Header</p> */}
+          <Header />
+          {children}
+        </div>
       </div>
+      <Footer />
     </main>
   );
 };
