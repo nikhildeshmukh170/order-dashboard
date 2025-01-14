@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import OrdersTable from "@/components/admin/OrdersTable";
 
 const Page = () => {
   return (
@@ -15,7 +16,8 @@ const Page = () => {
       </div>
 
       <div className="mt-7 w-full overflow-hidden">
-        <p>Table</p>
+        {/* <p>Table</p> */}
+        <OrdersTable />
       </div>
     </section>
   );

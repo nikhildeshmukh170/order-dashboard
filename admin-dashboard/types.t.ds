@@ -1,0 +1,8 @@
+interface Order{
+    id:string;
+    customer_name:string;
+    customer_email:string;
+    product:string;
+    quantity:number;
+    order_value:number;
+}
