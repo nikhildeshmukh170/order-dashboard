@@ -4,8 +4,8 @@ import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import app from "../../config"; // Import your initialized app
 
-function adminPage() {
-  const auth = getAuth(app); // Pass the initialized app here
+function AdminPage() {
+  const auth = getAuth(app);
   const router = useRouter();
   const [user, setUser] = useState(null);
 
@@ -30,20 +30,31 @@ function adminPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <div className="p-8 rounded-lg shadow-md">
-        <h1 className="text-3xl font-bold mb-4">
-          Welcome to the Admin Dashboard, {user ? user.displayName : "Guest"}!
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
+      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+        <h1 className="text-3xl font-extrabold text-gray-800 mb-4 text-center">
+          Admin Dashboard
         </h1>
-        <button
-          onClick={handleLogout}
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Logout
-        </button>
+        <p className="text-gray-600 mb-6 text-center">
+          Welcome,{" "}
+          <span className="font-semibold text-gray-800">
+            {user ? user.displayName : "Guest"}
+          </span>!
+        </p>
+        <div className="flex flex-col items-center space-y-4">
+          <button
+            onClick={handleLogout}
+            className="w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-200"
+          >
+            Logout
+          </button>
+        </div>
       </div>
+      <footer className="absolute bottom-4 text-sm text-gray-500">
+        Powered by Firebase | Secure Admin Access
+      </footer>
     </div>
   );
 }
 
-export default adminPage;
+export default AdminPage;
