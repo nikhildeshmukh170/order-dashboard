@@ -8,8 +8,8 @@ const Footer = () => {
         <div className="text-sm mb-4 sm:mb-0">
           <p>&copy; {new Date().getFullYear()} Smart Order Dashboard. All rights reserved.</p>
         </div>
-
-        {/* Footer Center (Optional: You can add other info, like version or services) */}
+        
+        {/* Footer center */}
         <div className="text-sm mb-4 sm:mb-0">
           <p>Version 1.0.0</p>
         </div>

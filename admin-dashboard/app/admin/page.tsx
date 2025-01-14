@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import app from "../../config"; // Import your initialized app
+import app from "../../config";
 
 function AdminPage() {
   const auth = getAuth(app);

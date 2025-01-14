@@ -7,7 +7,7 @@ const Page: React.FC = () => {
   const router = useRouter();
 
   const handleBackToOrders = () => {
-    router.push("/admin/orders"); // Redirect to orders page
+    router.push("/admin/orders");
   };
 
   return (

@@ -6,27 +6,27 @@ import Link from "next/link";
 import { cn, getInitials } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { User } from "firebase/auth"; // Import Firebase user type
+import { User } from "firebase/auth"; 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import app from "../../config"; 
 
 function Sidebar() {
-  const auth = getAuth(app); // Initialize Firebase Auth
+  const auth = getAuth(app);
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null); // Use User type
+  const [user, setUser] = useState<User | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser(user); // Set user if authenticated
+        setUser(user);
       } else {
-        setUser(null); // Set null if no user is authenticated
-        router.push("/"); // Redirect if not authenticated
+        setUser(null);
+        router.push("/"); 
       }
     });
-    return () => unsubscribe(); // Cleanup on component unmount
+    return () => unsubscribe();
   }, [auth, router]);
 
   return (

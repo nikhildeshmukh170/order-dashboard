@@ -79,7 +79,6 @@ const OrdersTable = () => {
       <div className="bg-white rounded-lg shadow-lg p-6 overflow-auto">
         <h2 className="text-xl font-semibold mb-4">Order List</h2>
         
-        {/* Add overflow-x-auto here to make the table horizontally scrollable */}
         <div className="overflow-x-auto">
           <table className="w-full border-collapse table-auto">
             <thead className="bg-gray-100">

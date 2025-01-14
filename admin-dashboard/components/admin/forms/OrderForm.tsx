@@ -33,7 +33,6 @@ interface Props extends Partial<Order> {
 const OrderForm = ({ type = "create", ...order }: Props) => {
   const router = useRouter();
 
-  // Initialize the form with default values
   const form = useForm<z.infer<typeof orderSchema>>({
     resolver: zodResolver(orderSchema),
     defaultValues: {
@@ -46,46 +45,41 @@ const OrderForm = ({ type = "create", ...order }: Props) => {
     },
   });
 
-  // Product price mapping
   const productPrices = {
     "Product 1": 29,
     "Product 2": 49,
     "Product 3": 149,
   };
 
-  // Helper to calculate order value
   const calculateOrderValue = (quantity: number, product: string) => {
     return quantity * (productPrices[product] || 0);
   };
 
-  // Form submission handler
   const onSubmit: SubmitHandler<z.infer<typeof orderSchema>> = async (values) => {
-    console.log("Form submitted with values:", values); // Debugging log
+    console.log("Form submitted with values:", values);
     try {
       if (type === "update") {
         console.log("Updating order:", values);
       } else {
         console.log("Creating new order:", values);
       }
-      toast({ description: `Order ${type} successful!` }); // Success toast
-  
-      // Attempt navigation
+      toast({ description: `Order ${type} successful!` });
+
       console.log("Navigating to /orders...");
       router.push("/orders");
       console.log("Navigation triggered.");
     } catch (error) {
-      console.error("Error occurred:", error); // Debugging log for errors
+      console.error("Error occurred:", error);
       toast({ description: "Something went wrong!", variant: "destructive" });
     }
   };
   
 
-  // Render the form
   return (
     <Form {...form}>
       <form
         onSubmit={(e) => {
-          console.log("Submit event triggered"); // Debugging log
+          console.log("Submit event triggered");
           form.handleSubmit(onSubmit)(e);
         }}
         className="space-y-8"

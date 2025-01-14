@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import app from "../../config"; // Import your initialized app
+import app from "../../config";
 
 function Header() {
-  const auth = getAuth(app); // Pass the initialized app here
+  const auth = getAuth(app);
   const router = useRouter();
   const [user, setUser] = useState(null);
 
@@ -25,7 +25,6 @@ function Header() {
     <header className="admin-header">
       <div>
         <h2 className="text-2xl font-semibold text-dark-400">
-          {/* {session?.user?.name} */}
           Welcome, {user ? user.displayName : "Guest"}
           
         </h2>
